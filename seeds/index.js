@@ -20,7 +20,7 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Groundwork.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
         const random1000 = Math.floor(Math.random() * 1000)
         const ground = new Groundwork({
             location: `${cities[random1000].city}, ${cities[random1000].state}`,

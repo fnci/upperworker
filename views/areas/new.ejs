@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Form</title>
+</head>
+<body>
+    <form action="/areas" method="POST">
+        <div>
+            <label for="title">Title</label>
+            <input id="title" type="text" name="area[title]">
+        </div>
+        <div>
+            <label for="location">Location</label>
+            <!-- The square brackets inside the name attribute would group the content together under the name "area" in this case. When our data is send via post req to our express app to the server, everything in the request body will be stored under this name "area"-->
+            <input id="location" type="text" name="area[location]">
+        </div>
+        <button>Add Area</button>
+    </form>
+    <a href="/areas">All Areas</a>
+</body>
+</html>
