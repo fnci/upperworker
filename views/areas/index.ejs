@@ -1,21 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Areas</title>
-</head>
-<body>
+<% layout('layouts/boilerplate') %>
     <h1>All areas</h1>
         <div>
             <a href="/areas/new">Add New Area</a>
         </div>
-    <ul>
-        <% for (let area of areas) { %>
-            <li><a href="/areas/<%= area._id %>"> <%= area.title %> </a></li>
-        <% } %>
-    </ul>
-
-</body>
-</html>
+    <% for (let area of areas) { %>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-fluid" alt="" src="<%=area.image%>">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"> <%=area.title%> </h5>
+                        <p class="card-text"><%=area.description%></p>
+                        <p class="card-text">
+                            <small class="text-muted"><%= area.location %></small>
+                        </p>
+                        <a href="/areas/<%= area._id %>" class="btn btn-primary"><%= area.title %></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>

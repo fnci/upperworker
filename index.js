@@ -2,17 +2,22 @@
 import  express from 'express';
 import path from 'path';
 import methodOverride from 'method-override';
+import ejsMate from 'ejs-mate';
 const app = express();
 const port = 3000; // Define a port to run the project.
 
 import Groundwork from './models/groundwork.js';
 
+
+
+
 import mongoose from 'mongoose';
-const uri = 'mongodb+srv://vesselbit:0147@cluster-01.iozhzud.mongodb.net/ctrlchief';
+const uri = 'mongodb+srv://root:0147@cluster-01.iozhzud.mongodb.net/places';
 mongoose.connect( uri , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
 const db = mongoose.connection;
 /* db.on('error', err => { console.error.bind(console, "connection error: " + err.message) }); */
 db.on('error', console.error.bind(console, "connection error:"));
@@ -25,10 +30,17 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
+// use ejs-locals for all ejs templates:
+app.engine('ejs', ejsMate);
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
+
+
+/* // CSS OWN STYLES
+app.use(express.static('/build/css'));
+*/
+
 
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
