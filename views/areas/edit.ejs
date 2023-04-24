@@ -3,32 +3,39 @@
     <div class="row">
         <h1 class="text-center">Edit Area</h1>
         <div class="col-6 offset-3">
-            <form action="/areas/<%= area._id %>?_method=PUT" method="POST">
+            <form class="validated-form" action="/areas/<%= area._id %>?_method=PUT" method="POST" novalidate>
                 <div class="mb-3">
                     <label class="form-label" for="title">Title</label>
-                    <input class="form-control" id="title" type="text" name="area[title]" value="<%= area.title %>">
+                    <input class="form-control" id="title" type="text" name="area[title]" value="<%= area.title %>"
+                        required>
+                    <div class="valid-feedback">Looks good!</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="location">Location</label>
                     <!-- The square brackets inside the name attribute would group the content together under the name "area" in this case. When our data is send via post req to our express app to the server, everything in the request body will be stored under this name "area"-->
-                    <input class="form-control" id="location" type="text" name="area[location]"
-                        value="<%= area.location %>">
+                    <input class="form-control" id="location" type="text" name="area[location]" value="<%= area.location %>" required>
+                    <div class="valid-feedback">Looks good!</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="image">image Url</label>
-                    <input class="form-control" id="image" type="text" name="area[image]" value="<%= area.image %>">
+                    <input class="form-control" id="image" type="text" name="area[image]" value="<%= area.image %>"
+                        required>
+                    <div class="valid-feedback">Looks good!</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">Area Price</label>
                     <div class="input-group">
                         <span class="input-group-text" id="price-label">$</span>
                         <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
-                            aria-describedby="price-label" name="area[price]" value="<%= area.price %>">
+                            aria-describedby="price-label" name="area[price]" value="<%= area.price %>" required>
+                        <div class="valid-feedback">Looks good!</div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
-                    <textarea class="form-control" id="description" type="text" name="area[description]"><%= area.title %></textarea>
+                    <textarea class="form-control" id="description" type="text" name="area[description]"
+                        required><%= area.description %></textarea>
+                    <div class="valid-feedback">Looks good!</div>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-info">Update Area</button>
