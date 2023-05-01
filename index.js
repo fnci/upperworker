@@ -1,13 +1,17 @@
 /* const express = require('express'); // CommonJS */
 import express from "express";
+/* import { MongoClient } from "mongodb"; */
 import path from "path";
 import methodOverride from "method-override";
 import catchAsync from "./utils/catchAsync.js";
 import ExpressError from "./utils/ExpressError.js";
 import ejsMate from "ejs-mate";
-import {areaSchema} from "./utils/joiSchemas.js";
+import {areaSchema, reviewSchema} from "./utils/joiSchemas.js";
+
 const app = express();
 const port = 3000; // Define a port to run the project.
+
+
 
 const validateArea = (req, res, next) => {
     const { error } = areaSchema.validate(req.body);
@@ -18,12 +22,23 @@ const validateArea = (req, res, next) => {
         next();
     }
 }
-
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if( error ){
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400);
+    } else {
+        next();
+    }
+}
 
 
 import Groundwork from "./models/groundwork.js";
+import Review from "./models/review.js";
+
 
 import mongoose from "mongoose";
+
 const uri = "mongodb+srv://root:0147@cluster-01.iozhzud.mongodb.net/places";
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -85,7 +100,7 @@ app.post(
 app.get(
     "/areas/:id",
     catchAsync(async (req, res) => {
-        const area = await Groundwork.findById(req.params.id);
+        const area = await Groundwork.findById(req.params.id).populate('reviews');
         res.render("areas/show", { area });
     })
 );
@@ -112,6 +127,24 @@ app.delete(
         await Groundwork.findByIdAndDelete(id);
         res.redirect("/areas");
     })
+);
+
+app.post("/areas/:id/reviews", validateReview, async (req, res) => {
+  const area = await Groundwork.findById(req.params.id);
+  const review = new Review(req.body.review);
+  area.reviews.push(review);
+  await review.save();
+  await area.save();
+  res.redirect(`/areas/${area._id}`);
+});
+app.delete(
+  "/areas/:id/reviews/:reviewId",
+  catchAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Groundwork.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/areas/${id}`);
+  })
 );
 // For every path '*'
 app.all('*', (req, res, next) => {

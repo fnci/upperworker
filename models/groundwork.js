@@ -1,12 +1,33 @@
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+const { Schema, model } = mongoose;
+import Review from "./review.js";
+/* const Schema = mongoose.Schema; */
+
+
 const GroundworkSchema = new Schema({
     title: String,
     price: Number,
     image: String,
     description: String,
-    location: String
+    location: String,
+    reviews: [
+        {
+            type: Schema.Types.ObjectId,
+            // the objectId from the Review model
+            ref: 'Review'
+        }
+    ]
 });
 
+GroundworkSchema.post('findOneAndDelete', async (doc) => {
+    if(doc){
+        await Review.deleteMany({
+            _id: {
+                $in: doc.reviews
+            }
+        });
+    };
+});
 
-export default mongoose.model('Groundwork', GroundworkSchema);
+const Groundwork = model('Groundwork', GroundworkSchema);
+export default Groundwork;
