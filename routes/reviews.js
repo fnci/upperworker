@@ -28,6 +28,9 @@ router.post(
         area.reviews.push(review);
         await review.save();
         await area.save();
+
+        req.flash('success', 'New Review!');
+
         res.redirect(`/areas/${area._id}`);
     }));
 router.delete(
@@ -36,6 +39,9 @@ router.delete(
         const { id, reviewId } = req.params;
         await Groundwork.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
         await Review.findByIdAndDelete(reviewId);
+
+        req.flash('success', 'Successfully Deleted Review!');
+
         res.redirect(`/areas/${id}`);
     }));
 

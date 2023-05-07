@@ -4,7 +4,7 @@ import Joi from "joi";
 export const areaSchema = Joi.object({
     area: Joi.object({
         title: Joi.string().required(),
-        description: Joi.string().required().min(50),
+        description: Joi.string().required().min(0),
         price: Joi.number().min(0).required(),
         location: Joi.string().required(),
         image: Joi.string().required()

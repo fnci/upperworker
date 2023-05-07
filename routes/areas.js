@@ -37,6 +37,10 @@ router.post(
         /* if(!req.body.area) throw new ExpressError("Invalid Area Data", 400); */
         const area = new Groundwork(req.body.area);
         await area.save();
+
+        // After save it flash a message of success for eg.
+        req.flash('success', 'Successfully Made a New Area');
+
         res.redirect(`/areas/${area._id}`);
     })
 );
@@ -45,6 +49,12 @@ router.get(
     "/:id",
     catchAsync(async (req, res) => {
         const area = await Groundwork.findById(req.params.id).populate('reviews');
+
+        if (!area) {
+            req.flash('error', 'Cannot find that area');
+            return res.redirect("/areas")
+        };
+
         res.render("areas/show", { area });
     })
 );
@@ -52,6 +62,12 @@ router.get(
     "/:id/edit",
     catchAsync(async (req, res) => {
         const area = await Groundwork.findById(req.params.id);
+
+        if (!area) {
+            req.flash('error', 'Cannot find that area');
+            return res.redirect("/areas")
+        };
+
         res.render("areas/edit", { area });
     })
 );
@@ -61,6 +77,8 @@ router.put(
     catchAsync(async (req, res) => {
         const { id } = req.params;
         const area = await Groundwork.findByIdAndUpdate(id, { ...req.body.area });
+        req.flash('success', 'Successfully Updated Area');
+
         res.redirect(`/areas/${area._id}`);
     })
 );
@@ -69,6 +87,9 @@ router.delete(
     catchAsync(async (req, res) => {
         const { id } = req.params;
         await Groundwork.findByIdAndDelete(id);
+
+        req.flash('success', 'Successfully Deleted Area!');
+
         res.redirect("/areas");
     })
 );
