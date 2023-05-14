@@ -3,6 +3,7 @@ const router = express.Router();
 import catchAsync from "../utils/catchAsync.js";
 import ExpressError from "../utils/ExpressError.js";
 import { areaSchema } from "../utils/joiSchemas.js";
+import isLoggedIn from "../utils/isLoggedIn.js";
 // Models
 import Groundwork from "../models/groundwork.js";
 
@@ -25,13 +26,15 @@ router.get(
 );
 router.get(
     "/new",
-    catchAsync(async (req, res) => {
+    isLoggedIn, (req, res) => {
+
         res.render("areas/new");
-    })
+    }
 );
 // Post to make our new area
 router.post(
     "/",
+    isLoggedIn,
     validateArea,
     catchAsync(async (req, res, next) => {
         /* if(!req.body.area) throw new ExpressError("Invalid Area Data", 400); */
@@ -60,6 +63,7 @@ router.get(
 );
 router.get(
     "/:id/edit",
+    isLoggedIn,
     catchAsync(async (req, res) => {
         const area = await Groundwork.findById(req.params.id);
 
@@ -73,6 +77,7 @@ router.get(
 );
 router.put(
     "/:id",
+    isLoggedIn,
     validateArea,
     catchAsync(async (req, res) => {
         const { id } = req.params;
@@ -84,6 +89,7 @@ router.put(
 );
 router.delete(
     "/:id",
+    isLoggedIn,
     catchAsync(async (req, res) => {
         const { id } = req.params;
         await Groundwork.findByIdAndDelete(id);

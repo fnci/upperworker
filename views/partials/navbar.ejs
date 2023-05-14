@@ -10,7 +10,15 @@
                 <a class="nav-link" href="/">Home</a>
                 <a class="nav-link" href="/areas">Areas</a>
                 <a class="nav-link" href="/areas/new">NewArea</a>
-                <a class="nav-link disabled">Disabled</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <% if(!currentUser) { %>
+                <a class="nav-link" href="/login">LogIn</a>
+                <a class="nav-link" href="/register">SignUp</a>
+                <% } else { %>
+                <!-- <%= currentUser.username  %> -->
+                <a class="nav-link" href="/logout">LogOut</a>
+                <% } %>
             </div>
         </div>
     </div>
