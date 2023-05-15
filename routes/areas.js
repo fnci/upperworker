@@ -1,21 +1,12 @@
 import express from "express";
 const router = express.Router();
 import catchAsync from "../utils/catchAsync.js";
-import ExpressError from "../utils/ExpressError.js";
-import { areaSchema } from "../utils/joiSchemas.js";
+import validateArea from "../utils/validateArea.js";
 import isLoggedIn from "../utils/isLoggedIn.js";
+import isAuthor from "../utils/isAuthor.js";
 // Models
 import Groundwork from "../models/groundwork.js";
 
-const validateArea = (req, res, next) => {
-    const { error } = areaSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400);
-    } else {
-        next();
-    }
-}
 
 router.get(
     "/",
@@ -39,11 +30,12 @@ router.post(
     catchAsync(async (req, res, next) => {
         /* if(!req.body.area) throw new ExpressError("Invalid Area Data", 400); */
         const area = new Groundwork(req.body.area);
+        area.author = req.user._id;
+
         await area.save();
 
         // After save it flash a message of success for eg.
         req.flash('success', 'Successfully Made a New Area');
-
         res.redirect(`/areas/${area._id}`);
     })
 );
@@ -51,7 +43,8 @@ router.post(
 router.get(
     "/:id",
     catchAsync(async (req, res) => {
-        const area = await Groundwork.findById(req.params.id).populate('reviews');
+        const area = await Groundwork.findById(req.params.id).populate('reviews').populate('author');
+        /* console.log(area); */
 
         if (!area) {
             req.flash('error', 'Cannot find that area');
@@ -64,13 +57,16 @@ router.get(
 router.get(
     "/:id/edit",
     isLoggedIn,
+    isAuthor,
     catchAsync(async (req, res) => {
-        const area = await Groundwork.findById(req.params.id);
+        const { id } = req.params;
+        const area = await Groundwork.findById(id);
 
         if (!area) {
             req.flash('error', 'Cannot find that area');
             return res.redirect("/areas")
         };
+
 
         res.render("areas/edit", { area });
     })
@@ -78,18 +74,20 @@ router.get(
 router.put(
     "/:id",
     isLoggedIn,
+    isAuthor,
     validateArea,
     catchAsync(async (req, res) => {
         const { id } = req.params;
         const area = await Groundwork.findByIdAndUpdate(id, { ...req.body.area });
-        req.flash('success', 'Successfully Updated Area');
 
+        req.flash('success', 'Successfully Updated Area');
         res.redirect(`/areas/${area._id}`);
     })
 );
 router.delete(
     "/:id",
     isLoggedIn,
+    isAuthor,
     catchAsync(async (req, res) => {
         const { id } = req.params;
         await Groundwork.findByIdAndDelete(id);

@@ -13,17 +13,19 @@
           </p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item text-muted">
-            <%= area.location %>
+          <li class="list-group-item text-muted"><%= area.location %></li>
+          <li class="list-group-item">Submitted by <%= area.author.username %>
           </li>
           <li class="list-group-item">$<%= area.price %>/month</li>
         </ul>
-        <div class="card-body">
-          <a class="card-link btn btn-primary" href="/areas/<%=area._id%>/edit">Edit</a>
-          <form class="d-inline" action="/areas/<%=area._id%>?_method=DELETE" method="POST">
-            <button class="btn btn-danger">Delete</button>
-          </form>
-        </div>
+        <% if( currentUser && area.author.equals(currentUser._id)){ %>
+          <div class="card-body">
+            <a class="card-link btn btn-primary" href="/areas/<%=area._id%>/edit">Edit</a>
+            <form class="d-inline" action="/areas/<%=area._id%>?_method=DELETE" method="POST">
+              <button class="btn btn-danger">Delete</button>
+            </form>
+          </div>
+          <% } %>
         <div class="card-footer text-muted">
           <a href="/areas">All Areas</a>
         </div>
