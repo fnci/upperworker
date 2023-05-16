@@ -24,7 +24,7 @@ const seedDB = async () => {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = random1000 * 1000;
         const ground = new Groundwork({
-            author: '64607b4883b8ad754fd80bfe',
+            author: '6462f91d4b7f262340eba1cf',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${(sample(places))}`,
             image: 'https://source.unsplash.com/collection/1708724',

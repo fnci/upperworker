@@ -18,7 +18,6 @@ router.get(
 router.get(
     "/new",
     isLoggedIn, (req, res) => {
-
         res.render("areas/new");
     }
 );
@@ -31,19 +30,22 @@ router.post(
         /* if(!req.body.area) throw new ExpressError("Invalid Area Data", 400); */
         const area = new Groundwork(req.body.area);
         area.author = req.user._id;
-
         await area.save();
-
         // After save it flash a message of success for eg.
         req.flash('success', 'Successfully Made a New Area');
         res.redirect(`/areas/${area._id}`);
     })
 );
-
 router.get(
     "/:id",
     catchAsync(async (req, res) => {
-        const area = await Groundwork.findById(req.params.id).populate('reviews').populate('author');
+        const area = await Groundwork.findById(req.params.id).populate({
+            path: 'reviews',
+            populate: {
+                path: 'author'
+            }
+        }).populate('author');
+
         /* console.log(area); */
 
         if (!area) {
