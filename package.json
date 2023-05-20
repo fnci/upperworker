@@ -6,9 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon index.js",
-    "sass": "sass --watch src/scss:build/css",
-    "dev": "gulp dev"
+    "server": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -22,11 +20,7 @@
   },
   "homepage": "https://github.com/fco7/upperworker#readme",
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-plumber": "^1.2.1",
-    "gulp-sass": "^5.1.0",
-    "nodemon": "^2.0.22",
-    "sass": "^1.60.0"
+    "nodemon": "^2.0.22"
   },
   "dependencies": {
     "connect-flash": "^0.1.1",
