@@ -6,9 +6,10 @@ export const areaSchema = Joi.object({
         title: Joi.string().required(),
         description: Joi.string().required().min(0),
         price: Joi.number().min(0).required(),
-        location: Joi.string().required(),
-        image: Joi.string().required()
-    }).required()
+        location: Joi.string().required()/* ,
+        image: Joi.string().required() */
+    }).required(),
+    deleteImages: Joi.array()
 });
 
 export const reviewSchema = Joi.object({

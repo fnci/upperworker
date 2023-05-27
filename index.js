@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+if(process.env.NODE_ENV !== 'production'){
+    dotenv.config();
+}
 /* const express = require('express'); // CommonJS */
 import express from "express";
 /* import { MongoClient } from "mongodb"; */
@@ -21,9 +25,9 @@ import areas from "./routes/areas.js";
 import reviews from "./routes/reviews.js";
 
 const app = express();
-const port = 3000; // Define a port to run the project.
+const port = process.env.PORT || 3000; // Define a port to run the project.
 
-const uri = "mongodb+srv://root:0147@cluster-01.iozhzud.mongodb.net/places";
+const uri = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_KEY}@cluster-01.iozhzud.mongodb.net/places`;
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

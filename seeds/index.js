@@ -29,7 +29,21 @@ const seedDB = async () => {
             title: `${sample(descriptors)} ${(sample(places))}`,
             image: 'https://source.unsplash.com/collection/1708724',
             description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime saepe vero dolore labore hic, itaque dicta aperiam adipisci ratione corporis ad, ab fuga quasi libero officia expedita quaerat eos? Labore?',
-            price
+            price,
+            images: [
+                {
+                  url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1684992136/upperworker/y22dz63dc88wzpq1t5cy.jpg',
+                  filename: 'upperworker/y22dz63dc88wzpq1t5cy',
+                },
+                {
+                  url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1684992190/upperworker/qkog5fudyctgvxanstky.jpg',
+                  filename: 'upperworker/qkog5fudyctgvxanstky',
+                },
+                {
+                  url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1684992195/upperworker/bmfcjw0w5x6aihzwjed3.jpg',
+                  filename: 'upperworker/bmfcjw0w5x6aihzwjed3',
+                }
+            ]
         })
         await ground.save();
     }
