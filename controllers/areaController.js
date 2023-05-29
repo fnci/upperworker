@@ -1,4 +1,7 @@
-import Groundwork from "../models/groundwork.js";
+import Groundwork from '../models/groundwork.js';
+import mbxGeocoding from '@mapbox/mapbox-sdk/services/geocoding.js';
+const mapboxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mapboxToken });
 import {cloudinary} from '../cloudinary.js';
 
 export const index = async (req, res) => {
@@ -9,8 +12,12 @@ export const newArea = (req, res) => {
     res.render("areas/new");
 }
 export const createArea = async (req, res, next) => {
-
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.area.location,
+        limit: 1
+    }).send();
     const area = new Groundwork(req.body.area);
+    area.geometry = geoData.body.features[0].geometry;
     area.images = req.files.map(file => ({
         url: file.path, filename: file.filename
     }));

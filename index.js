@@ -17,8 +17,6 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 
 import User from "./models/user.js";
-
-
 // Routes
 import users from "./routes/users.js";
 import areas from "./routes/areas.js";

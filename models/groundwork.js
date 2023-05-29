@@ -16,10 +16,23 @@ ImageSchema.virtual('thumbnail').get(function() {
     return this.url.replace('/upload', '/upload/c_scale,w_200');
 });
 
+const opts = { toJSON: { virtuals: true } };
+
 const GroundworkSchema = new Schema({
     title: String,
     price: Number,
     images: [ImageSchema],
+    geometry: {
+        type: {
+            type: String,
+            enum: ["Point"],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
     description: String,
     location: String,
     author: {
@@ -33,6 +46,13 @@ const GroundworkSchema = new Schema({
             ref: 'Review'
         }
     ]
+}, opts);
+
+GroundworkSchema.virtual('properties.popUpMarkup').get(function() {
+    return `<a style="text-decoration:none" href="/areas/${this._id}">
+    ${this.title}
+    </a>
+    <p>${this.description.substring()}...</p>`
 });
 
 GroundworkSchema.post('findOneAndDelete', async (doc) => {

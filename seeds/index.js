@@ -1,9 +1,13 @@
+import dotenv from 'dotenv';
+if(process.env.NODE_ENV !== 'production'){
+    dotenv.config();
+}
 import mongoose from 'mongoose';
 import cities from '../seeds/cities.js';
 import { places, descriptors } from '../seeds/seedHelpers.js';
 import Groundwork from '../models/groundwork.js';
 
-const uri = 'mongodb+srv://root:0147@cluster-01.iozhzud.mongodb.net/places';
+const uri = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_KEY}@cluster-01.iozhzud.mongodb.net/places`;
 mongoose.connect( uri , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -20,7 +24,7 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Groundwork.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 200; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = random1000 * 1000;
         const ground = new Groundwork({
@@ -30,6 +34,13 @@ const seedDB = async () => {
             image: 'https://source.unsplash.com/collection/1708724',
             description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime saepe vero dolore labore hic, itaque dicta aperiam adipisci ratione corporis ad, ab fuga quasi libero officia expedita quaerat eos? Labore?',
             price,
+            geometry: {
+                type: 'Point',
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude
+                ]
+            },
             images: [
                 {
                   url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1684992136/upperworker/y22dz63dc88wzpq1t5cy.jpg',
