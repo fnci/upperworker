@@ -18,8 +18,7 @@ import {
   deleteArea,
 } from "../controllers/areaController.js";
 
-router
-  .route('/')
+router.route('/')
   .get(catchAsync(index))
   .post(isLoggedIn, upload.array('image'),validateArea, catchAsync(createArea))
 
@@ -27,8 +26,7 @@ router
 router.get('/new', isLoggedIn, newArea);
 
 
-router
-  .route('/:id')
+router.route('/:id')
   .get(catchAsync(showArea))
   .put(isLoggedIn, isAuthor, upload.array('image'), validateArea, catchAsync(updateArea))
   .delete(isLoggedIn, isAuthor, catchAsync(deleteArea));

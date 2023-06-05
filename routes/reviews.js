@@ -7,7 +7,6 @@ import isLoggedIn from "../utils/isLoggedIn.js";
 // Controller
 import {newReview, deleteReview} from "../controllers/reviewController.js"
 
-
 router.post(
     '/',
     isLoggedIn,

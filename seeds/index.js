@@ -1,13 +1,12 @@
 import dotenv from 'dotenv';
-if(process.env.NODE_ENV !== 'production'){
-    dotenv.config();
-}
+/* if(process.env.NODE_ENV !== 'production'){} */
+dotenv.config();
 import mongoose from 'mongoose';
 import cities from '../seeds/cities.js';
 import { places, descriptors } from '../seeds/seedHelpers.js';
 import Groundwork from '../models/groundwork.js';
 
-const uri = `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_KEY}@cluster-01.iozhzud.mongodb.net/places`;
+const uri = process.env.MDB_URL;
 mongoose.connect( uri , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -28,10 +27,10 @@ const seedDB = async () => {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = random1000 * 1000;
         const ground = new Groundwork({
-            author: '6462f91d4b7f262340eba1cf',
+            author: '647d51f44da4d833a1c3ee29',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${(sample(places))}`,
-            image: 'https://source.unsplash.com/collection/1708724',
+            image: 'https://unsplash.com/collections/444603/artisan',
             description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime saepe vero dolore labore hic, itaque dicta aperiam adipisci ratione corporis ad, ab fuga quasi libero officia expedita quaerat eos? Labore?',
             price,
             geometry: {
@@ -43,16 +42,24 @@ const seedDB = async () => {
             },
             images: [
                 {
-                  url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1684992136/upperworker/y22dz63dc88wzpq1t5cy.jpg',
-                  filename: 'upperworker/y22dz63dc88wzpq1t5cy',
+                    url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1688955582/upperworker/flower-planting_egldmu.jpg',
+                    filename: 'upperworker/flower-planting_egldmu.jpg',
                 },
                 {
-                  url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1684992190/upperworker/qkog5fudyctgvxanstky.jpg',
-                  filename: 'upperworker/qkog5fudyctgvxanstky',
+                    url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1688954968/upperworker/Installing-floor_toowez.jpg',
+                    filename: 'upperworker/Installing-floor_toowez.jpg',
                 },
                 {
-                  url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1684992195/upperworker/bmfcjw0w5x6aihzwjed3.jpg',
-                  filename: 'upperworker/bmfcjw0w5x6aihzwjed3',
+                    url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1685862634/upperworker/photo-1674077342248-9c6484a77034_k2hf1o.jpg',
+                    filename: 'upperworker/photo-1674077342248-9c6484a77034_k2hf1o.jpg',
+                },
+                {
+                    url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1685863420/upperworker/photo-1628281321655-060c5fb662a5_p3hnjl.jpg',
+                    filename: 'upperworker/photo-1628281321655-060c5fb662a5_p3hnjl.jpg',
+                },
+                {
+                    url: 'https://res.cloudinary.com/ddqiasrsz/image/upload/v1688954972/upperworker/Spray-Painting_guaozi.jpg',
+                    filename: 'upperworker/Spray-Painting_guaozi.jpg',
                 }
             ]
         })

@@ -1,16 +1,33 @@
 <% layout('layouts/boilerplate') %>
-<h1>LogIn</h1>
-<form action="/login" class="validated-form" method="POST" novalidate>
-    <div class="mb-3">
-        <label class="form-label" for="username">Username</label>
-        <input class="form-control" id="username" type="text" name="username" required>
-        <div class="valid-feedback">Looks good!</div>
-    </div>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="row align-items-start p-5 my-2">
+            <div class="">
+                <div class="card shadow">
+                    <img style="width: 24rem;" src="/images/malcolm-lightbody-401OD83Ke6o-unsplash.jpg"
+                        class="card-img-top" alt="The internal workings of an old windmill">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Login
+                        </h5>
+                        <form action="/login" class="validated-form" method="POST" novalidate>
+                            <div class="mb-3">
+                                <label class="form-label" for="username">Username</label>
+                                <input class="form-control" id="username" type="text" name="username" autofocus
+                                    required>
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
 
-    <div class="mb-3">
-        <label class="form-label" for="password">Password</label>
-        <input class="form-control" id="password" type="password" name="password" required>
-        <div class="valid-feedback">Looks good!</div>
+                            <div class="mb-3">
+                                <label class="form-label" for="password">Password</label>
+                                <input class="form-control" id="password" type="password" name="password" required>
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                            <div class="d-grid gap-2 mt-2">
+                                <button class="btn btn-success btn-block" type="submit">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <button class="btn btn-success" type="submit">LogIn</button>
-</form>

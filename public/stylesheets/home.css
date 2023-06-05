@@ -1,0 +1,120 @@
+body {
+  height: 100vh;
+  font-family: "Geologica", sans-serif;
+  background-image: linear-gradient(
+      rgba(155, 155, 155, 0.397),
+      rgba(0, 0, 0, 0.719)
+    ),
+    url("/images/wilhelm-gunkel-6kfQvW5eync-unsplash.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.685);
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+}
+
+footer {
+  margin-top: 8rem;
+}
+
+.cover-container {
+  max-width: 60vw;
+  margin-bottom: auto;
+}
+
+.nav-link {
+  padding: 0.45rem 0 0.25rem 0;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.932);
+  margin-left: 1rem;
+  border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover {
+  color: rgba(255, 255, 255, 0.938);
+  border-bottom-color: rgba(255, 255, 255, 0.781);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+  }
+  .cover-container {
+    max-width: 100vw;
+    margin-bottom: auto;
+  }
+
+  body {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+  }
+
+  main {
+    margin-bottom: auto;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    margin: 0 auto;
+  }
+
+  ul {
+    flex-direction: column;
+    padding-left: 0;
+  }
+
+  .nav-link {
+    float: left;
+    margin: 1rem auto;
+    font-size: 1.2rem;
+  }
+
+  .nav-masthead {
+    float: right;
+  }
+}
+
+.button {
+  border-radius: 0.5rem;
+  background-color: #33a746;
+  border: none;
+  color: #eeeeee;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 1.6rem;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 20px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.lead {
+  font-size: 1.2rem;
+  font-weight: 200;
+}

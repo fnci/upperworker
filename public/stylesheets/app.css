@@ -1,0 +1,199 @@
+body {
+  font-family: "Geologica", sans-serif;
+}
+
+#cluster-map {
+  width: 100%;
+  height: 500px;
+  border-radius: 0.25rem;
+}
+#map {
+  width: 100%;
+  height: 300px;
+  border-radius: 0.25rem;
+}
+.card img {
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  max-width: 100%;
+}
+.card {
+  margin-bottom: 1rem;
+}
+/* .card-index img{
+  aspect-ratio: 3/2;
+  object-fit: cover;
+} */
+.card-index:last-of-type{
+  margin-bottom: 4.25rem;
+}
+.col-6 {
+  margin-bottom: 3.4rem;
+}
+.col-md-4 {
+  display: flex;
+  justify-content: center;
+}
+.col-md-8 {
+  display: flex;
+  align-items: center;
+}
+.col-md-4 img {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+.card-footer {
+  padding-left: 0.6rem;
+}
+.starability {
+  margin-bottom: -2.2rem;
+}
+
+.form-check-input {
+  background-color: rgb(125, 125, 125);
+}
+/* Return button */
+
+.button-yellow {
+  border-radius: 0.3rem;
+  background-color: #f8e700;
+  border: none;
+  color: #000000;
+  text-align: center;
+  font-size: 1rem;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.button-yellow span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button-yellow span:after {
+  content: "\00bb";
+  position: absolute;
+  transform: rotateY(3.142rad);
+  opacity: 0;
+  top: 0;
+  left: 20px;
+  transition: 0.5s;
+}
+
+.button-yellow:hover span {
+  padding-left: 25px;
+}
+
+.button-yellow:hover span:after {
+  opacity: 1;
+  left: 0;
+}
+
+.btn-primary {
+  margin-right: 0.8rem;
+}
+.btn-danger {
+  /* margin: -0.4rem 0 -0.4rem 0.35rem; */
+}
+
+.valid-feedback {
+  margin: 0.3rem 0 0.1rem 0;
+}
+.mb-stars {
+  margin-bottom: -2rem;
+}
+/* .card-body-index{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: end;
+  justify-content: space-between;
+  padding-left: 0;
+} */
+.card-title-index {
+  font-size: 1.6rem;
+}
+.card-title {
+  font-size: 1.8rem;
+  margin-top: 1rem;
+}
+.text-location-index{
+  font-size: 1.2rem;
+  margin: 0rem auto 0.5rem 0rem;
+}
+.card-body {
+  margin: 0.2rem;
+  margin-right: 0.6rem;
+}
+.card-body-show {
+  margin: 0rem;
+}
+.card-footer {
+  padding: 16px;
+}
+.card-review{
+  margin-bottom: 0.8rem;
+}
+.card-review > .card-body{
+  margin: 0.2rem;
+}
+.cutoff-text{
+  --max-lines: 3;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--max-lines);
+}
+.delete-review{
+  display: flex;
+}
+@media (max-width: 768px) {
+  .card img {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+  }
+  .col-6 {
+    flex: 0 0 auto;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .offset-3 {
+    margin-left: 0;
+  }
+  .mb-stars {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .alert-heading,
+    h4 {
+    text-align: center;
+    font-weight: 700;
+  }
+  .card-body{
+    padding: 0px;
+    margin: 0rem 1.2rem 1.2rem 1.2rem;
+  }
+  .card-body-show {
+    padding: 0px;
+    margin: 1.2rem;
+  }
+  .card-review > .card-body{
+    padding: 0px;
+    margin: 1.2rem;
+  }
+  .card-review:last-of-type{
+    margin-bottom: 3.6rem;
+  }
+  .btn-show {
+    margin-bottom: 2.8rem;
+  }
+}

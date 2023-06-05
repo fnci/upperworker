@@ -1,10 +1,10 @@
 import User from "../models/user.js";
 
-export const renderRegister = (req, res) => {
+const renderRegister = (req, res) => {
     res.render('users/register');
 }
 
-export const register = async (req, res, next) => {
+const register = async (req, res, next) => {
     try {
         const { username, email, password } = req.body;
         const newUser = new User({username, email});
@@ -20,17 +20,17 @@ export const register = async (req, res, next) => {
     }
 }
 
-export const renderLogin = (req, res) => {
+const renderLogin = (req, res) => {
     res.render('users/login');
 }
 
-export const login = (req, res) => {
+const login = (req, res) => {
     req.flash('success', 'Hey! Welcome back! :)');
     const redirectUrl = res.locals.returnTo || '/areas';
     /* delete req.session.returnTo; */
     res.redirect(redirectUrl);
 }
-export const logout = (req, res, next) => {
+const logout = (req, res, next) => {
     req.logout(function (err) {
         if (err) {
             return next(err);
@@ -40,4 +40,4 @@ export const logout = (req, res, next) => {
     });
 }
 
-export default {renderRegister, register, renderLogin, login, logout}
+export {renderRegister, register, renderLogin, login, logout}

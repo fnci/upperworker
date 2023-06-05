@@ -5,7 +5,8 @@ style: 'mapbox://styles/mapbox/dark-v11',
 center: area.geometry.coordinates,
 zoom: 15,
 });
-
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
 // Set marker options.
 const marker = new mapboxgl.Marker({
     color: "#FF5722",

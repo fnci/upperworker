@@ -4,14 +4,12 @@ const mapboxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapboxToken });
 import {cloudinary} from '../cloudinary.js';
 
-export const index = async (req, res) => {
+const index = async (req, res) => {
     const areas = await Groundwork.find({});
     res.render("areas/index", { areas });
 }
-export const newArea = (req, res) => {
-    res.render("areas/new");
-}
-export const createArea = async (req, res, next) => {
+const newArea = (req, res) => {res.render("areas/new");}
+const createArea = async (req, res, next) => {
     const geoData = await geocoder.forwardGeocode({
         query: req.body.area.location,
         limit: 1
@@ -23,12 +21,12 @@ export const createArea = async (req, res, next) => {
     }));
     area.author = req.user._id;
     await area.save();
-    console.log(area);
+    /* console.log(area); */
 
     req.flash('success', 'Successfully Made a New Area');
     res.redirect(`/areas/${area._id}`);
 }
-export const showArea = async (req, res) => {
+const showArea = async (req, res) => {
     const area = await Groundwork.findById(req.params.id).populate({
         path: 'reviews',
         populate: {
@@ -36,12 +34,12 @@ export const showArea = async (req, res) => {
         }
     }).populate('author');
     if (!area) {
-        req.flash('error', 'Cannot find that area');
+        req.flash('error', 'Cannot find that area.');
         return res.redirect("/areas")
     };
     res.render("areas/show", { area });
 }
-export const editArea = async (req, res) => {
+const editArea = async (req, res) => {
     const { id } = req.params;
     const area = await Groundwork.findById(id);
     if (!area) {
@@ -50,7 +48,7 @@ export const editArea = async (req, res) => {
     };
     res.render("areas/edit", { area });
 }
-export const updateArea = async (req, res) => {
+const updateArea = async (req, res) => {
     const { id } = req.params;
     const area = await Groundwork.findByIdAndUpdate(id, { ...req.body.area });
     const imgs = req.files.map(file => ({url: file.path, filename: file.filename}));
@@ -62,15 +60,15 @@ export const updateArea = async (req, res) => {
         }
         await area.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}})
     }
-    req.flash('success', 'Successfully Updated Area');
+    req.flash('success', 'Area Successfully Updated');
     res.redirect(`/areas/${area._id}`);
 }
-export const deleteArea = async (req, res) => {
+const deleteArea = async (req, res) => {
     const { id } = req.params;
     await Groundwork.findByIdAndDelete(id);
-    req.flash('success', 'Successfully Deleted Area!');
+    req.flash('success', 'Area Successfully Deleted');
     res.redirect("/areas");
 }
 
 
-export default {index, newArea, createArea, showArea, editArea, updateArea, deleteArea}
+export {index, newArea, createArea, showArea, editArea, updateArea, deleteArea}
